@@ -7,6 +7,7 @@
 //
 
 #import "CSADocument.h"
+#import "CSAClassStructureManager.h"
 
 @interface CSADocument()
 
@@ -24,11 +25,11 @@
     if (self) {
         // Add your subclass-specific initialization here.
         
-        NSDictionary *dict = @{@"Class1":@[@"Class2",@"Class3"],
+        /*NSDictionary *dict = @{@"Class1":@[@"Class2",@"Class3"],
                                @"Class2":@[@"Class3"]
                                };
         
-        self.dependenceStructure = [dict mutableCopy];
+        self.dependenceStructure = [dict mutableCopy];*/
     }
     return self;
 }
@@ -53,7 +54,7 @@
 }
 
 #pragma mark - Document methods
-- (void)saveDocument:(id)sender
+- (void)saveToCoreData
 {
     NSManagedObject *entityDesc =
     [NSEntityDescription
@@ -112,6 +113,42 @@
 {
     [self.classUsedTable reloadData];
 }
+
+#pragma mark - IBAction
+- (IBAction)pushLoadData:(NSButton *)sender {
+    // Create the File Open Dialog class.
+    NSOpenPanel* openDlg = [NSOpenPanel openPanel];
+    
+    // Enable the selection of files in the dialog.
+    [openDlg setCanChooseFiles:NO];
+    
+    // Enable the selection of directories in the dialog.
+    [openDlg setCanChooseDirectories:YES];
+    
+    openDlg.allowsMultipleSelection = NO;
+    
+    // Display the dialog.  If the OK button was pressed,
+    // process the files.
+    
+    [openDlg beginWithCompletionHandler:^(NSInteger result) {
+        if (result == NSFileHandlingPanelOKButton) {
+            
+            // grab a reference to what has been selected
+            NSURL *selectedDirectory = [[openDlg URLs]objectAtIndex:0];
+            
+            CSAClassStructureManager *csm = [[CSAClassStructureManager alloc] initWithSourceCodeDirectory:selectedDirectory.path];
+            csm.skipPods = YES;
+            
+            self.dependenceStructure = csm.dependenceStructure;
+            [self.classListTable reloadData];
+            
+            [self saveToCoreData];
+            
+        }
+    }];
+
+}
+
 
 
 @end

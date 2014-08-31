@@ -11,8 +11,8 @@
 		A057733419B1DCC0006F2ECD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A057733219B1DCC0006F2ECD /* InfoPlist.strings */; };
 		A057733619B1DCC0006F2ECD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A057733519B1DCC0006F2ECD /* main.m */; };
 		A057733A19B1DCC0006F2ECD /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = A057733819B1DCC0006F2ECD /* Credits.rtf */; };
-		A057733D19B1DCC0006F2ECD /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = A057733C19B1DCC0006F2ECD /* Document.m */; };
-		A057734019B1DCC0006F2ECD /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = A057733E19B1DCC0006F2ECD /* Document.xib */; };
+		A057733D19B1DCC0006F2ECD /* CSADocument.m in Sources */ = {isa = PBXBuildFile; fileRef = A057733C19B1DCC0006F2ECD /* CSADocument.m */; };
+		A057734019B1DCC0006F2ECD /* CSADocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = A057733E19B1DCC0006F2ECD /* CSADocument.xib */; };
 		A057734319B1DCC0006F2ECD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A057734119B1DCC0006F2ECD /* MainMenu.xib */; };
 		A057734619B1DCC0006F2ECD /* Document.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A057734419B1DCC0006F2ECD /* Document.xcdatamodeld */; };
 		A057734819B1DCC0006F2ECD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A057734719B1DCC0006F2ECD /* Images.xcassets */; };
@@ -20,6 +20,11 @@
 		A057735019B1DCC0006F2ECD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A057732919B1DCC0006F2ECD /* Cocoa.framework */; };
 		A057735819B1DCC0006F2ECD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A057735619B1DCC0006F2ECD /* InfoPlist.strings */; };
 		A057735A19B1DCC0006F2ECD /* ClassStructureAnalyzerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A057735919B1DCC0006F2ECD /* ClassStructureAnalyzerTests.m */; };
+		A05A84A319B33C4A00F91C9D /* CSAClassStructureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A05A84A219B33C4A00F91C9D /* CSAClassStructureManager.m */; };
+		A05A84AB19B357BF00F91C9D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A05A84AA19B357BF00F91C9D /* Foundation.framework */; };
+		A05A84AE19B357BF00F91C9D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A05A84AD19B357BF00F91C9D /* main.m */; };
+		A05A84B219B357BF00F91C9D /* SourceCodeParserTest.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = A05A84B119B357BF00F91C9D /* SourceCodeParserTest.1 */; };
+		A05A84B619B357F700F91C9D /* CSAClassStructureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A05A84A219B33C4A00F91C9D /* CSAClassStructureManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +37,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		A05A84A719B357BF00F91C9D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				A05A84B219B357BF00F91C9D /* SourceCodeParserTest.1 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		A057732619B1DCC0006F2ECD /* ClassStructureAnalyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClassStructureAnalyzer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A057732919B1DCC0006F2ECD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -43,9 +61,9 @@
 		A057733519B1DCC0006F2ECD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A057733719B1DCC0006F2ECD /* ClassStructureAnalyzer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ClassStructureAnalyzer-Prefix.pch"; sourceTree = "<group>"; };
 		A057733919B1DCC0006F2ECD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		A057733B19B1DCC0006F2ECD /* Document.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Document.h; sourceTree = "<group>"; };
-		A057733C19B1DCC0006F2ECD /* Document.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Document.m; sourceTree = "<group>"; };
-		A057733F19B1DCC0006F2ECD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Document.xib; sourceTree = "<group>"; };
+		A057733B19B1DCC0006F2ECD /* CSADocument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSADocument.h; sourceTree = "<group>"; };
+		A057733C19B1DCC0006F2ECD /* CSADocument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSADocument.m; sourceTree = "<group>"; };
+		A057733F19B1DCC0006F2ECD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CSADocument.xib; sourceTree = "<group>"; };
 		A057734219B1DCC0006F2ECD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		A057734519B1DCC0006F2ECD /* Document.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Document.xcdatamodel; sourceTree = "<group>"; };
 		A057734719B1DCC0006F2ECD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -54,6 +72,22 @@
 		A057735519B1DCC0006F2ECD /* ClassStructureAnalyzerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ClassStructureAnalyzerTests-Info.plist"; sourceTree = "<group>"; };
 		A057735719B1DCC0006F2ECD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A057735919B1DCC0006F2ECD /* ClassStructureAnalyzerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClassStructureAnalyzerTests.m; sourceTree = "<group>"; };
+		A05A849219B32D3900F91C9D /* BuildSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BuildSystem.h; path = ClassStructureAnalyzer/Library/libClang/Headers/BuildSystem.h; sourceTree = "<group>"; };
+		A05A849319B32D3900F91C9D /* CXCompilationDatabase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CXCompilationDatabase.h; path = ClassStructureAnalyzer/Library/libClang/Headers/CXCompilationDatabase.h; sourceTree = "<group>"; };
+		A05A849419B32D3900F91C9D /* CXErrorCode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CXErrorCode.h; path = ClassStructureAnalyzer/Library/libClang/Headers/CXErrorCode.h; sourceTree = "<group>"; };
+		A05A849519B32D3900F91C9D /* CXString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CXString.h; path = ClassStructureAnalyzer/Library/libClang/Headers/CXString.h; sourceTree = "<group>"; };
+		A05A849619B32D3900F91C9D /* Documentation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Documentation.h; path = ClassStructureAnalyzer/Library/libClang/Headers/Documentation.h; sourceTree = "<group>"; };
+		A05A849719B32D3900F91C9D /* Index.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Index.h; path = ClassStructureAnalyzer/Library/libClang/Headers/Index.h; sourceTree = "<group>"; };
+		A05A849819B32D3900F91C9D /* Platform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Platform.h; path = ClassStructureAnalyzer/Library/libClang/Headers/Platform.h; sourceTree = "<group>"; };
+		A05A849D19B339E800F91C9D /* libclang.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libclang.dylib; sourceTree = "<group>"; };
+		A05A849F19B33A2000F91C9D /* libclang.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libclang.a; sourceTree = "<group>"; };
+		A05A84A119B33C4A00F91C9D /* CSAClassStructureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSAClassStructureManager.h; path = Model/CSAClassStructureManager.h; sourceTree = "<group>"; };
+		A05A84A219B33C4A00F91C9D /* CSAClassStructureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSAClassStructureManager.m; path = Model/CSAClassStructureManager.m; sourceTree = "<group>"; };
+		A05A84A919B357BF00F91C9D /* SourceCodeParserTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SourceCodeParserTest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A05A84AA19B357BF00F91C9D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		A05A84AD19B357BF00F91C9D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A05A84B019B357BF00F91C9D /* SourceCodeParserTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SourceCodeParserTest-Prefix.pch"; sourceTree = "<group>"; };
+		A05A84B119B357BF00F91C9D /* SourceCodeParserTest.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = SourceCodeParserTest.1; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +108,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A05A84A619B357BF00F91C9D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A05A84AB19B357BF00F91C9D /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -82,8 +124,10 @@
 			children = (
 				A057732F19B1DCC0006F2ECD /* ClassStructureAnalyzer */,
 				A057735319B1DCC0006F2ECD /* ClassStructureAnalyzerTests */,
+				A05A84AC19B357BF00F91C9D /* SourceCodeParserTest */,
 				A057732819B1DCC0006F2ECD /* Frameworks */,
 				A057732719B1DCC0006F2ECD /* Products */,
+				A05A844619B3284800F91C9D /* Library */,
 			);
 			sourceTree = "<group>";
 		};
@@ -92,6 +136,7 @@
 			children = (
 				A057732619B1DCC0006F2ECD /* ClassStructureAnalyzer.app */,
 				A057734D19B1DCC0006F2ECD /* ClassStructureAnalyzerTests.xctest */,
+				A05A84A919B357BF00F91C9D /* SourceCodeParserTest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -101,6 +146,7 @@
 			children = (
 				A057732919B1DCC0006F2ECD /* Cocoa.framework */,
 				A057734E19B1DCC0006F2ECD /* XCTest.framework */,
+				A05A84AA19B357BF00F91C9D /* Foundation.framework */,
 				A057732B19B1DCC0006F2ECD /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -119,9 +165,10 @@
 		A057732F19B1DCC0006F2ECD /* ClassStructureAnalyzer */ = {
 			isa = PBXGroup;
 			children = (
-				A057733B19B1DCC0006F2ECD /* Document.h */,
-				A057733C19B1DCC0006F2ECD /* Document.m */,
-				A057733E19B1DCC0006F2ECD /* Document.xib */,
+				A05A84A419B33C4E00F91C9D /* Model */,
+				A057733B19B1DCC0006F2ECD /* CSADocument.h */,
+				A057733C19B1DCC0006F2ECD /* CSADocument.m */,
+				A057733E19B1DCC0006F2ECD /* CSADocument.xib */,
 				A057734119B1DCC0006F2ECD /* MainMenu.xib */,
 				A057734719B1DCC0006F2ECD /* Images.xcassets */,
 				A057734419B1DCC0006F2ECD /* Document.xcdatamodeld */,
@@ -156,6 +203,57 @@
 			children = (
 				A057735519B1DCC0006F2ECD /* ClassStructureAnalyzerTests-Info.plist */,
 				A057735619B1DCC0006F2ECD /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A05A844619B3284800F91C9D /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				A05A844719B3285200F91C9D /* libclang */,
+			);
+			name = Library;
+			sourceTree = "<group>";
+		};
+		A05A844719B3285200F91C9D /* libclang */ = {
+			isa = PBXGroup;
+			children = (
+				A05A849F19B33A2000F91C9D /* libclang.a */,
+				A05A849D19B339E800F91C9D /* libclang.dylib */,
+				A05A849219B32D3900F91C9D /* BuildSystem.h */,
+				A05A849319B32D3900F91C9D /* CXCompilationDatabase.h */,
+				A05A849419B32D3900F91C9D /* CXErrorCode.h */,
+				A05A849519B32D3900F91C9D /* CXString.h */,
+				A05A849619B32D3900F91C9D /* Documentation.h */,
+				A05A849719B32D3900F91C9D /* Index.h */,
+				A05A849819B32D3900F91C9D /* Platform.h */,
+			);
+			name = libclang;
+			sourceTree = "<group>";
+		};
+		A05A84A419B33C4E00F91C9D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A05A84A119B33C4A00F91C9D /* CSAClassStructureManager.h */,
+				A05A84A219B33C4A00F91C9D /* CSAClassStructureManager.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		A05A84AC19B357BF00F91C9D /* SourceCodeParserTest */ = {
+			isa = PBXGroup;
+			children = (
+				A05A84AD19B357BF00F91C9D /* main.m */,
+				A05A84B119B357BF00F91C9D /* SourceCodeParserTest.1 */,
+				A05A84AF19B357BF00F91C9D /* Supporting Files */,
+			);
+			path = SourceCodeParserTest;
+			sourceTree = "<group>";
+		};
+		A05A84AF19B357BF00F91C9D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A05A84B019B357BF00F91C9D /* SourceCodeParserTest-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -198,6 +296,23 @@
 			productReference = A057734D19B1DCC0006F2ECD /* ClassStructureAnalyzerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		A05A84A819B357BF00F91C9D /* SourceCodeParserTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A05A84B319B357BF00F91C9D /* Build configuration list for PBXNativeTarget "SourceCodeParserTest" */;
+			buildPhases = (
+				A05A84A519B357BF00F91C9D /* Sources */,
+				A05A84A619B357BF00F91C9D /* Frameworks */,
+				A05A84A719B357BF00F91C9D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SourceCodeParserTest;
+			productName = SourceCodeParserTest;
+			productReference = A05A84A919B357BF00F91C9D /* SourceCodeParserTest */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -227,6 +342,7 @@
 			targets = (
 				A057732519B1DCC0006F2ECD /* ClassStructureAnalyzer */,
 				A057734C19B1DCC0006F2ECD /* ClassStructureAnalyzerTests */,
+				A05A84A819B357BF00F91C9D /* SourceCodeParserTest */,
 			);
 		};
 /* End PBXProject section */
@@ -236,7 +352,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A057734019B1DCC0006F2ECD /* Document.xib in Resources */,
+				A057734019B1DCC0006F2ECD /* CSADocument.xib in Resources */,
 				A057734819B1DCC0006F2ECD /* Images.xcassets in Resources */,
 				A057733419B1DCC0006F2ECD /* InfoPlist.strings in Resources */,
 				A057733A19B1DCC0006F2ECD /* Credits.rtf in Resources */,
@@ -259,8 +375,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A05A84A319B33C4A00F91C9D /* CSAClassStructureManager.m in Sources */,
 				A057734619B1DCC0006F2ECD /* Document.xcdatamodeld in Sources */,
-				A057733D19B1DCC0006F2ECD /* Document.m in Sources */,
+				A057733D19B1DCC0006F2ECD /* CSADocument.m in Sources */,
 				A057733619B1DCC0006F2ECD /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -270,6 +387,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				A057735A19B1DCC0006F2ECD /* ClassStructureAnalyzerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A05A84A519B357BF00F91C9D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A05A84B619B357F700F91C9D /* CSAClassStructureManager.m in Sources */,
+				A05A84AE19B357BF00F91C9D /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,12 +426,12 @@
 			name = Credits.rtf;
 			sourceTree = "<group>";
 		};
-		A057733E19B1DCC0006F2ECD /* Document.xib */ = {
+		A057733E19B1DCC0006F2ECD /* CSADocument.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				A057733F19B1DCC0006F2ECD /* Base */,
 			);
-			name = Document.xib;
+			name = CSADocument.xib;
 			sourceTree = "<group>";
 		};
 		A057734119B1DCC0006F2ECD /* MainMenu.xib */ = {
@@ -402,9 +528,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ClassStructureAnalyzer/ClassStructureAnalyzer-Prefix.pch";
 				INFOPLIST_FILE = "ClassStructureAnalyzer/ClassStructureAnalyzer-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ClassStructureAnalyzer/Library/libClang/lib",
+					"$(PROJECT_DIR)",
+				);
+				OTHER_LDFLAGS = "-Objc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -415,9 +552,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ClassStructureAnalyzer/ClassStructureAnalyzer-Prefix.pch";
 				INFOPLIST_FILE = "ClassStructureAnalyzer/ClassStructureAnalyzer-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ClassStructureAnalyzer/Library/libClang/lib",
+					"$(PROJECT_DIR)",
+				);
+				OTHER_LDFLAGS = "-Objc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -463,6 +611,28 @@
 			};
 			name = Release;
 		};
+		A05A84B419B357BF00F91C9D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SourceCodeParserTest/SourceCodeParserTest-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A05A84B519B357BF00F91C9D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SourceCodeParserTest/SourceCodeParserTest-Prefix.pch";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -482,12 +652,22 @@
 				A057735F19B1DCC0006F2ECD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A057736019B1DCC0006F2ECD /* Build configuration list for PBXNativeTarget "ClassStructureAnalyzerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A057736119B1DCC0006F2ECD /* Debug */,
 				A057736219B1DCC0006F2ECD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A05A84B319B357BF00F91C9D /* Build configuration list for PBXNativeTarget "SourceCodeParserTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A05A84B419B357BF00F91C9D /* Debug */,
+				A05A84B519B357BF00F91C9D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};

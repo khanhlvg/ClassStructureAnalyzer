@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>SourceCodeParserTest.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -18,6 +23,11 @@
 			<true/>
 		</dict>
 		<key>A057734C19B1DCC0006F2ECD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A05A84A819B357BF00F91C9D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

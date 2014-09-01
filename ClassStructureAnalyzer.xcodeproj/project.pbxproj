@@ -538,7 +538,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/ClassStructureAnalyzer/Library/libClang/lib",
 					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "-Objc";
@@ -562,7 +561,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/ClassStructureAnalyzer/Library/libClang/lib",
 					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "-Objc";
@@ -670,6 +668,7 @@
 				A05A84B519B357BF00F91C9D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

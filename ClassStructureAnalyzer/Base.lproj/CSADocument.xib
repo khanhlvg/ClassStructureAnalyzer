@@ -7,6 +7,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="CSADocument">
             <connections>
                 <outlet property="classListTable" destination="Z97-Wl-jXh" id="oM0-3h-qaw"/>
+                <outlet property="classNameSearchText" destination="l0y-7n-83f" id="SOI-Ig-8j7"/>
                 <outlet property="classUsedTable" destination="Rrt-rx-3Rb" id="8VH-PH-zlL"/>
                 <outlet property="window" destination="xOd-HO-29H" id="JIz-fz-R2o"/>
             </connections>
@@ -17,7 +18,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="133" y="235" width="507" height="435"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1058"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
             <value key="minSize" type="size" width="94" height="86"/>
             <view key="contentView" id="gIp-Ho-8D9">
                 <rect key="frame" x="0.0" y="0.0" width="507" height="435"/>
@@ -31,6 +32,9 @@
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
+                        <connections>
+                            <outlet property="delegate" destination="-2" id="fK8-57-Bjy"/>
+                        </connections>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MJJ-IF-B7R">
                         <rect key="frame" x="18" y="373" width="236" height="17"/>

@@ -25,6 +25,9 @@
 		A05A84AE19B357BF00F91C9D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A05A84AD19B357BF00F91C9D /* main.m */; };
 		A05A84B219B357BF00F91C9D /* SourceCodeParserTest.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = A05A84B119B357BF00F91C9D /* SourceCodeParserTest.1 */; };
 		A05A84B619B357F700F91C9D /* CSAClassStructureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A05A84A219B33C4A00F91C9D /* CSAClassStructureManager.m */; };
+		BFEDB32419B474E7002705A7 /* CSAMetaInfoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEDB32219B474E7002705A7 /* CSAMetaInfoWindowController.m */; };
+		BFEDB32519B474E7002705A7 /* CSAMetaInfoWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFEDB32319B474E7002705A7 /* CSAMetaInfoWindowController.xib */; };
+		BFEDB32E19B49801002705A7 /* CSAClassUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEDB32D19B49801002705A7 /* CSAClassUtility.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +91,11 @@
 		A05A84AD19B357BF00F91C9D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A05A84B019B357BF00F91C9D /* SourceCodeParserTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SourceCodeParserTest-Prefix.pch"; sourceTree = "<group>"; };
 		A05A84B119B357BF00F91C9D /* SourceCodeParserTest.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = SourceCodeParserTest.1; sourceTree = "<group>"; };
+		BFEDB32119B474E7002705A7 /* CSAMetaInfoWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSAMetaInfoWindowController.h; path = ClassStructureAnalyzer/ViewController/CSAMetaInfoWindowController.h; sourceTree = "<group>"; };
+		BFEDB32219B474E7002705A7 /* CSAMetaInfoWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSAMetaInfoWindowController.m; path = ClassStructureAnalyzer/ViewController/CSAMetaInfoWindowController.m; sourceTree = "<group>"; };
+		BFEDB32319B474E7002705A7 /* CSAMetaInfoWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CSAMetaInfoWindowController.xib; path = ClassStructureAnalyzer/ViewController/CSAMetaInfoWindowController.xib; sourceTree = "<group>"; };
+		BFEDB32C19B49801002705A7 /* CSAClassUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSAClassUtility.h; path = Utility/CSAClassUtility.h; sourceTree = "<group>"; };
+		BFEDB32D19B49801002705A7 /* CSAClassUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSAClassUtility.m; path = Utility/CSAClassUtility.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,13 +173,11 @@
 		A057732F19B1DCC0006F2ECD /* ClassStructureAnalyzer */ = {
 			isa = PBXGroup;
 			children = (
+				BFEDB32F19B49927002705A7 /* Utility */,
+				BFEDB32619B47503002705A7 /* Controller */,
 				A05A84A419B33C4E00F91C9D /* Model */,
-				A057733B19B1DCC0006F2ECD /* CSADocument.h */,
-				A057733C19B1DCC0006F2ECD /* CSADocument.m */,
-				A057733E19B1DCC0006F2ECD /* CSADocument.xib */,
 				A057734119B1DCC0006F2ECD /* MainMenu.xib */,
 				A057734719B1DCC0006F2ECD /* Images.xcassets */,
-				A057734419B1DCC0006F2ECD /* Document.xcdatamodeld */,
 				A057733019B1DCC0006F2ECD /* Supporting Files */,
 			);
 			path = ClassStructureAnalyzer;
@@ -234,6 +240,7 @@
 		A05A84A419B33C4E00F91C9D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A057734419B1DCC0006F2ECD /* Document.xcdatamodeld */,
 				A05A84A119B33C4A00F91C9D /* CSAClassStructureManager.h */,
 				A05A84A219B33C4A00F91C9D /* CSAClassStructureManager.m */,
 			);
@@ -256,6 +263,46 @@
 				A05A84B019B357BF00F91C9D /* SourceCodeParserTest-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BFEDB32619B47503002705A7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				BFEDB32819B4751E002705A7 /* MainDocument */,
+				BFEDB32719B47515002705A7 /* MetaInfo */,
+			);
+			name = Controller;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		BFEDB32719B47515002705A7 /* MetaInfo */ = {
+			isa = PBXGroup;
+			children = (
+				BFEDB32119B474E7002705A7 /* CSAMetaInfoWindowController.h */,
+				BFEDB32219B474E7002705A7 /* CSAMetaInfoWindowController.m */,
+				BFEDB32319B474E7002705A7 /* CSAMetaInfoWindowController.xib */,
+			);
+			name = MetaInfo;
+			sourceTree = "<group>";
+		};
+		BFEDB32819B4751E002705A7 /* MainDocument */ = {
+			isa = PBXGroup;
+			children = (
+				A057733B19B1DCC0006F2ECD /* CSADocument.h */,
+				A057733C19B1DCC0006F2ECD /* CSADocument.m */,
+				A057733E19B1DCC0006F2ECD /* CSADocument.xib */,
+			);
+			name = MainDocument;
+			path = ClassStructureAnalyzer;
+			sourceTree = "<group>";
+		};
+		BFEDB32F19B49927002705A7 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				BFEDB32C19B49801002705A7 /* CSAClassUtility.h */,
+				BFEDB32D19B49801002705A7 /* CSAClassUtility.m */,
+			);
+			name = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -352,6 +399,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFEDB32519B474E7002705A7 /* CSAMetaInfoWindowController.xib in Resources */,
 				A057734019B1DCC0006F2ECD /* CSADocument.xib in Resources */,
 				A057734819B1DCC0006F2ECD /* Images.xcassets in Resources */,
 				A057733419B1DCC0006F2ECD /* InfoPlist.strings in Resources */,
@@ -375,8 +423,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFEDB32419B474E7002705A7 /* CSAMetaInfoWindowController.m in Sources */,
 				A05A84A319B33C4A00F91C9D /* CSAClassStructureManager.m in Sources */,
 				A057734619B1DCC0006F2ECD /* Document.xcdatamodeld in Sources */,
+				BFEDB32E19B49801002705A7 /* CSAClassUtility.m in Sources */,
 				A057733D19B1DCC0006F2ECD /* CSADocument.m in Sources */,
 				A057733619B1DCC0006F2ECD /* main.m in Sources */,
 			);

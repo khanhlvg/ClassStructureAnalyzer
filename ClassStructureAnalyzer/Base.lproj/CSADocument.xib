@@ -129,6 +129,7 @@
                                     </tableColumns>
                                     <connections>
                                         <outlet property="dataSource" destination="-2" id="Wic-tp-cov"/>
+                                        <outlet property="delegate" destination="-2" id="sg5-1r-UQb"/>
                                     </connections>
                                 </tableView>
                             </subviews>
@@ -154,8 +155,20 @@
                             <action selector="pushLoadData:" target="-2" id="GnH-kW-3LQ"/>
                         </connections>
                     </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="l10-xE-Tgi">
+                        <rect key="frame" x="323" y="391" width="99" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Edit Meta" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tB8-bU-b8F">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="pushEditMeta:" target="-2" id="xkW-iF-Hc6"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="l10-xE-Tgi" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" constant="16" id="0oG-Pj-HSP"/>
                     <constraint firstItem="0z3-Mm-5rb" firstAttribute="leading" secondItem="pvL-lw-zrn" secondAttribute="trailing" constant="3" id="1ky-I3-0xQ"/>
                     <constraint firstAttribute="trailing" secondItem="0z3-Mm-5rb" secondAttribute="trailing" constant="20" id="3Af-Kz-KYS"/>
                     <constraint firstAttribute="trailing" secondItem="OgP-Jo-wDe" secondAttribute="trailing" constant="20" id="3jU-d2-pYN"/>
@@ -172,6 +185,7 @@
                     <constraint firstItem="0z3-Mm-5rb" firstAttribute="width" secondItem="pvL-lw-zrn" secondAttribute="width" id="lIb-JO-5Zg"/>
                     <constraint firstItem="1vJ-xN-bYa" firstAttribute="height" secondItem="MJJ-IF-B7R" secondAttribute="height" id="qXD-Wz-UnP"/>
                     <constraint firstItem="l0y-7n-83f" firstAttribute="leading" secondItem="gIp-Ho-8D9" secondAttribute="leading" constant="20" id="rIM-Ee-mY2"/>
+                    <constraint firstItem="OgP-Jo-wDe" firstAttribute="leading" secondItem="l10-xE-Tgi" secondAttribute="trailing" constant="12" id="sPS-0y-Hp7"/>
                     <constraint firstItem="OgP-Jo-wDe" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" constant="16" id="sVk-DX-rdg"/>
                     <constraint firstAttribute="bottom" secondItem="pvL-lw-zrn" secondAttribute="bottom" constant="20" id="uEi-xd-LxO"/>
                     <constraint firstAttribute="bottom" secondItem="0z3-Mm-5rb" secondAttribute="bottom" constant="20" id="vdH-ae-Fbz"/>

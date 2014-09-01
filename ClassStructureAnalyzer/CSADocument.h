@@ -12,4 +12,6 @@
 
 @property (nonatomic,readonly) NSDictionary *dependenceStructure;
 
+- (void)saveToCoreData;
+
 @end

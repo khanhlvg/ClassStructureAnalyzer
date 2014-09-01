@@ -20,8 +20,12 @@
 
 #import "CSADocument.h"
 #import "CSAClassStructureManager.h"
+#import "CSAMetaInfoWindowController.h"
+#import "CSAClassUtility.h"
 
 @interface CSADocument()
+
+@property (nonatomic) CSAMetaInfoWindowController *metaInfoWC;
 
 @property (weak) IBOutlet NSTableView *classListTable;
 @property (weak) IBOutlet NSTableView *classUsedTable;
@@ -29,6 +33,7 @@
 
 @property (nonatomic) NSArray *classListMatchSearchString;
 @property (nonatomic) NSMutableDictionary *dependenceStructure;
+@property (nonatomic) NSMutableDictionary *metaInfoDict;
 
 @end
 
@@ -77,12 +82,29 @@
 #pragma mark - Document methods
 - (void)saveToCoreData
 {
+    //delete old data
+    NSEntityDescription *entityDescription = [NSEntityDescription
+                                              entityForName:@"Content" inManagedObjectContext:self.managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    [request setEntity:entityDescription];
+    
+    NSError *error;
+    NSArray *array = [self.managedObjectContext executeFetchRequest:request error:&error];
+    for (NSManagedObject *object in array) {
+        [self.managedObjectContext deleteObject:object];
+    }
+    
+    //resave new data
+    
     NSManagedObject *entityDesc = [NSEntityDescription insertNewObjectForEntityForName:@"Content"
                                                                 inManagedObjectContext:self.managedObjectContext];
 
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.dependenceStructure];
-
     [entityDesc setValue:data forKey:@"dependenceStructure"];
+    
+    data = [NSKeyedArchiver archivedDataWithRootObject:self.metaInfoDict];
+    [entityDesc setValue:data forKey:@"metaInfoDict"];
     
     [self.managedObjectContext insertObject:entityDesc];
     
@@ -105,8 +127,12 @@
         self.dependenceStructure = @{};
     } else {
         NSManagedObject *object = array[0];
+        
         NSData *rawData = [object valueForKey:@"dependenceStructure"];
         self.dependenceStructure = [NSKeyedUnarchiver unarchiveObjectWithData:rawData];
+        
+        rawData = [object valueForKey:@"metaInfoDict"];
+        self.metaInfoDict = [NSKeyedUnarchiver unarchiveObjectWithData:rawData];
     }
     
     self.classListMatchSearchString = [self.dependenceStructure allKeys];
@@ -168,6 +194,13 @@
     [self.classUsedTable reloadData];
 }
 
+#pragma mark - NSTableViewDelegate methods
+
+- (BOOL)tableView:(NSTableView *)tableView shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
+    return NO;
+}
+
 #pragma mark - IBAction
 - (IBAction)pushLoadData:(NSButton *)sender {
     // Create the File Open Dialog class.
@@ -194,6 +227,7 @@
             csm.skipPods = YES;
             
             self.dependenceStructure = csm.dependenceStructure;
+            self.metaInfoDict = [self metaInfoDictionaryFromStructure:self.dependenceStructure];
             [self.classListTable reloadData];
             
             [self saveToCoreData];
@@ -203,51 +237,46 @@
 
 }
 
+- (IBAction)pushEditMeta:(NSButton *)sender {
+    
+    if (!self.metaInfoWC) {
+        self.metaInfoWC = [[CSAMetaInfoWindowController alloc] init];
+        self.metaInfoWC.metaInfoDict = self.metaInfoDict;
+        self.metaInfoWC.documentEntity = self;
+    }
+    
+    CSAMetaInfoWindowController *mvc = self.metaInfoWC;
+    
+    mvc.window.title = [NSString stringWithFormat:@"Meta Data Editor - %@",self.windowForSheet.title];
+    
+    [mvc showWindow:self];
+    
+}
+
+
 #pragma mark - TextField delegate methods
 - (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor
 {
     NSString *classNameSearchString = fieldEditor.string;
-    self.classListMatchSearchString = [self subArrayOf:[self.dependenceStructure allKeys] matchString:classNameSearchString];
+    self.classListMatchSearchString = [CSAClassUtility subArrayOf:[self.dependenceStructure allKeys]
+                                                      matchString:classNameSearchString];
     [self.classListTable reloadData];
     return YES;
 }
 
-#pragma mark - Class list match search string methods
+#pragma mark - Meta data methods
 
-- (NSArray *)subArrayOf:(NSArray *)array matchString:(NSString *)matchString
+- (NSMutableDictionary *)metaInfoDictionaryFromStructure:(NSDictionary *)structure
 {
-    if ([matchString isEqualToString:@""]) {
-        return [array copy];
-    }
+    NSMutableDictionary *ret = [NSMutableDictionary dictionary];
     
-    NSMutableArray *ret = [NSMutableArray array];
-    
-    for (id item in array) {
-        if ([[item class] isSubclassOfClass:[NSString class]]) {
-            NSString *str = (NSString *)item;
-            if ([str rangeOfString:matchString options:NSCaseInsensitiveSearch].location != NSNotFound) {
-                [ret addObject:str];
-            }
+    for (NSString *className in self.dependenceStructure.allKeys) {
+        if ([CSAClassUtility shouldClassHasMetaData:className]) {
+            [ret setObject:className forKey:className];
         }
     }
     
     return ret;
-}
-
-- (NSInteger)numberOfItemInArray:(NSArray *)array matchString:(NSString *)matchString
-{
-    NSInteger count = 0;
-    
-    for (id item in array) {
-        if ([[item class] isSubclassOfClass:[NSString class]]) {
-            NSString *str = (NSString *)item;
-            if ([str rangeOfString:matchString].location != NSNotFound) {
-                count++;
-            }
-        }
-    }
-    
-    return count;
 }
 
 @end

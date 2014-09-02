@@ -12,6 +12,8 @@
 {
     NSArray *_allSourceFileList;
     NSMutableDictionary *_dependenceStructure;
+    NSArray *_classToDisplayList;
+    NSMutableArray *_fetchAllClassName;
 }
 
 //@property (nonatomic) NSMutableDictionary *dependenceStructure;
@@ -67,7 +69,6 @@ NSString * const kClassNameRegexPattern = @"@interface[\\W]*([\\w]*)";
 - (NSDictionary *)dependenceStructure
 {
     if (!_dependenceStructure) {
-        _dependenceStructure = [[NSMutableDictionary alloc] init];
         [self buildDependenceStructure];
     }
     
@@ -76,28 +77,11 @@ NSString * const kClassNameRegexPattern = @"@interface[\\W]*([\\w]*)";
 
 - (NSArray *)fetchAllClassName
 {
-    NSMutableArray *result = [NSMutableArray array];
-    
-    for (NSString *filePath in self.allSourceFileList) {
-        NSError *error = nil;
-        
-        NSString *fileContent = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:filePath]
-                                                         encoding:NSUTF8StringEncoding error:&error];
-        
-        NSRegularExpression *regexExp = [NSRegularExpression regularExpressionWithPattern:kClassNameRegexPattern
-                                                                                  options:NSRegularExpressionCaseInsensitive
-                                                                                    error:&error];
-        
-        NSArray *matchList = [regexExp matchesInString:fileContent options:NSMatchingReportProgress range:NSMakeRange(0, fileContent.length)];
-        for (NSTextCheckingResult *checkResult in matchList) {
-            NSRange matchRange = [checkResult rangeAtIndex:1];
-            NSString *matchedString = [fileContent substringWithRange:matchRange];
-            [result addObject:matchedString];
-        }
-
+    if (!_fetchAllClassName) {
+        [self buildFetchAllClassName];
     }
     
-    return result;
+    return _fetchAllClassName;
 }
 
 #pragma mark - Private methods
@@ -128,6 +112,8 @@ NSString * const kClassNameRegexPattern = @"@interface[\\W]*([\\w]*)";
 
 - (void)buildDependenceStructure
 {
+    _dependenceStructure = [[NSMutableDictionary alloc] init];
+    
     NSArray *allClassName = [self fetchAllClassName];
     
     for (NSString *className in allClassName) {
@@ -149,5 +135,30 @@ NSString * const kClassNameRegexPattern = @"@interface[\\W]*([\\w]*)";
         [_dependenceStructure setValue:[set allObjects] forKey:className];
     }
 }
+
+- (void)buildFetchAllClassName
+{
+    _fetchAllClassName = [NSMutableArray array];
+    
+    for (NSString *filePath in self.allSourceFileList) {
+        NSError *error = nil;
+        
+        NSString *fileContent = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:filePath]
+                                                         encoding:NSUTF8StringEncoding error:&error];
+        NSRegularExpression *regexExp = [NSRegularExpression regularExpressionWithPattern:kClassNameRegexPattern
+                                                                                  options:NSRegularExpressionCaseInsensitive
+                                                                                    error:&error];
+        
+        NSArray *matchList = [regexExp matchesInString:fileContent options:NSMatchingReportProgress range:NSMakeRange(0, fileContent.length)];
+        for (NSTextCheckingResult *checkResult in matchList) {
+            NSRange matchRange = [checkResult rangeAtIndex:1];
+            NSString *matchedString = [fileContent substringWithRange:matchRange];
+            [_fetchAllClassName addObject:matchedString];
+        }
+        
+    }
+    
+}
+
 
 @end

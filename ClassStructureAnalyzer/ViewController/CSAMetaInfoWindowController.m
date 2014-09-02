@@ -8,13 +8,14 @@
 
 #import "CSAMetaInfoWindowController.h"
 #import "CSADocument.h"
+#import "CSAClassUtility.h"
 
 @interface CSAMetaInfoWindowController ()
 
 @property (weak) IBOutlet NSTableView *metaInfoTable;
 @property (weak) IBOutlet NSTextField *filterClassnameText;
 
-@property (nonatomic) NSArray *matchClassNameList;
+@property (nonatomic) NSArray *classListMatchSearchString;
 
 @end
 
@@ -47,21 +48,21 @@ static NSString *const kDescriptionColumnIdentifer = @"DescriptionColumn";
 - (void)windowWillLoad
 {
     [super windowWillLoad];
-    self.matchClassNameList = [self.metaInfoDict allKeys];
+    self.classListMatchSearchString = [self.metaInfoDict allKeys];
 }
 
 #pragma mark - NSTableViewDataSource methods
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
-    return [self.matchClassNameList count];
+    return [self.classListMatchSearchString count];
 }
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
     if ([tableColumn.identifier isEqualToString:kClassNameColumnIdentifer]) {
-        return self.matchClassNameList[row];
+        return self.classListMatchSearchString[row];
     } else if ([tableColumn.identifier isEqualToString:kDescriptionColumnIdentifer]) {
-        return [self.metaInfoDict objectForKey:self.matchClassNameList[row]];
+        return [self.metaInfoDict objectForKey:self.classListMatchSearchString[row]];
     }
     
     return nil;
@@ -70,7 +71,7 @@ static NSString *const kDescriptionColumnIdentifer = @"DescriptionColumn";
 - (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
     if ([tableColumn.identifier isEqualToString:kDescriptionColumnIdentifer]) {
-        [self.metaInfoDict setObject:object forKey:self.matchClassNameList[row]];
+        [self.metaInfoDict setObject:object forKey:self.classListMatchSearchString[row]];
         [self.documentEntity saveToCoreData];
     }
 
@@ -85,6 +86,16 @@ static NSString *const kDescriptionColumnIdentifer = @"DescriptionColumn";
     }
     
     return NO;
+}
+
+#pragma mark - TextField delegate methods
+- (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor
+{
+    NSString *classNameSearchString = fieldEditor.string;
+    self.classListMatchSearchString = [CSAClassUtility subArrayOf:[self.metaInfoDict allKeys]
+                                                      matchString:classNameSearchString];
+    [self.metaInfoTable reloadData];
+    return YES;
 }
 
 @end

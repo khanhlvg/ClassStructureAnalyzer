@@ -13,6 +13,7 @@
 @property (nonatomic, readonly) NSString *sourceDirectoryPath;
 @property (nonatomic, readonly) NSDictionary *dependenceStructure;
 @property (nonatomic, readonly) NSArray *allSourceFileList;
+@property (nonatomic, readonly) NSArray *classToDisplayList;
 @property (nonatomic) BOOL skipPods;
 
 //initializers
@@ -20,7 +21,6 @@
 
 //getters
 - (NSArray *)fetchAllClassName;
-
 
 - (BOOL) isFile:(NSString *)filePath containsClassCall:(NSString *)className;
 

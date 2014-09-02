@@ -16,7 +16,7 @@
         return NO;
     }
     
-    if ([className hasSuffix:@"Controller"] || [className hasSuffix:@"View"] || [className hasSuffix:@"ViewCell"]) {
+    if ([className hasSuffix:@"Controller"] || [className hasSuffix:@"View"] || [className hasSuffix:@"Cell"]) {
         return YES;
     }
     

@@ -8,6 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="CSAMetaInfoWindowController">
             <connections>
                 <outlet property="filterClassnameText" destination="9Ld-DS-poc" id="1uf-wr-dmu"/>
+                <outlet property="metaInfoTable" destination="Lqh-jh-eVb" id="m5S-NG-DcN"/>
                 <outlet property="window" destination="oid-Rc-FaF" id="Gep-4i-0YD"/>
             </connections>
         </customObject>
@@ -75,7 +76,7 @@
                             <rect key="frame" x="1" y="1" width="0.0" height="16"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="37" horizontal="NO" id="0nV-Cr-0Fd">
+                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="0nV-Cr-0Fd">
                             <rect key="frame" x="-15" y="17" width="16" height="0.0"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
@@ -92,6 +93,9 @@
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
+                        <connections>
+                            <outlet property="delegate" destination="-2" id="Dlc-Bd-DWy"/>
+                        </connections>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gaO-4X-FI5">
                         <rect key="frame" x="18" y="342" width="109" height="17"/>

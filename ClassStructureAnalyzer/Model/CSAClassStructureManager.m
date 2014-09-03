@@ -7,13 +7,24 @@
 //
 
 #import "CSAClassStructureManager.h"
+#import "CSAClassUtility.h"
 
 @interface CSAClassStructureManager()
 {
+    //member=NSString
     NSArray *_allSourceFileList;
-    NSMutableDictionary *_dependenceStructure;
-    NSArray *_classToDisplayList;
+    
+    //member=NSString
     NSMutableArray *_fetchAllClassName;
+    
+    //key=NSString : value=NSArray[NSString]
+    NSMutableDictionary *_dependenceStructure;
+    
+    //key=NSString : value=NSMutableArray[CSADigResultDto]
+    NSMutableDictionary *_digResult;
+    //key=NSString : value=NSArray[CSADigResultDto]
+    NSMutableDictionary *_dependenceStructureWithDigger;
+    
 }
 
 //@property (nonatomic) NSMutableDictionary *dependenceStructure;
@@ -63,7 +74,7 @@ NSString * const kClassNameRegexPattern = @"@interface[\\W]*([\\w]*)";
 
     _allSourceFileList = result;
     
-    return result;
+    return [NSArray arrayWithArray:result];
 }
 
 - (NSDictionary *)dependenceStructure
@@ -72,7 +83,7 @@ NSString * const kClassNameRegexPattern = @"@interface[\\W]*([\\w]*)";
         [self buildDependenceStructure];
     }
     
-    return _dependenceStructure;
+    return [NSDictionary dictionaryWithDictionary:_dependenceStructure];
 }
 
 - (NSArray *)fetchAllClassName
@@ -81,7 +92,16 @@ NSString * const kClassNameRegexPattern = @"@interface[\\W]*([\\w]*)";
         [self buildFetchAllClassName];
     }
     
-    return _fetchAllClassName;
+    return [NSArray arrayWithArray:_fetchAllClassName];
+}
+
+- (NSDictionary *)dependenceStructureWithDigger
+{
+    if (!_dependenceStructureWithDigger) {
+        [self buildDependenceStructureWithDigger];
+    }
+    
+    return [NSDictionary dictionaryWithDictionary:_dependenceStructureWithDigger];
 }
 
 #pragma mark - Private methods
@@ -110,6 +130,8 @@ NSString * const kClassNameRegexPattern = @"@interface[\\W]*([\\w]*)";
     return [[fullPath lastPathComponent] stringByDeletingPathExtension];
 }
 
+#pragma mark - Private Getter data builders
+
 - (void)buildDependenceStructure
 {
     _dependenceStructure = [[NSMutableDictionary alloc] init];
@@ -125,6 +147,7 @@ NSString * const kClassNameRegexPattern = @"@interface[\\W]*([\\w]*)";
         for (NSString *className in allClassName) {
             if ([self isFile:filePath containsClassCall:className]) {
                 NSMutableSet *set = [_dependenceStructure objectForKey:className];
+#warning 使われるclass名を、filenameからではなく、実際にcodeを解析して、どのクラスに使われるかを特定するロジックに改良したい
                 [set addObject:[self fileNameFromFullPath:filePath]];
             }
         }
@@ -156,6 +179,128 @@ NSString * const kClassNameRegexPattern = @"@interface[\\W]*([\\w]*)";
             [_fetchAllClassName addObject:matchedString];
         }
         
+    }
+    
+}
+
+#pragma mark - Private class list digger
+
+//recuresive method to dig
+- (NSArray *)digClass:(NSString *)className withCurrentRoute:(NSString *)route
+{
+    //NSLog(@"digger: className=%@ route=%@",className,route);
+    
+    NSMutableArray *result = [NSMutableArray array];
+    
+    //if has cached data than skip digging and create result from cache
+    if ([_digResult objectForKey:className]) {
+        
+        //NSLog(@"use cache data for class=%@",className);
+        
+        NSArray *cachedResult = [_digResult objectForKey:className];
+        for (CSADigResultDto *singleCachedResult in cachedResult) {
+            CSADigResultDto *singleResult = [[CSADigResultDto alloc] init];
+            singleResult.className = singleCachedResult.className;
+            singleResult.route = [NSString stringWithFormat:@"%@%@",route,singleCachedResult.route];
+            [result addObject:singleResult];
+        }
+        
+        return result;
+    }
+    
+    //as there is no cached data, we will dig deeper and cache that result
+    NSMutableArray *resultToCache = [NSMutableArray array];
+    
+    // if current class has meta data then return
+    if ([CSAClassUtility shouldClassHasMetaData:className]) {
+        //cache result
+        CSADigResultDto *dto = [[CSADigResultDto alloc] init];
+        dto.className = className;
+        dto.route = [NSString stringWithFormat:@"->%@",className];
+        [resultToCache addObject:dto];
+        [_digResult setObject:resultToCache forKey:className];
+        
+        //create real result
+        dto = [[CSADigResultDto alloc] init];
+        dto.className = className;
+        dto.route = [NSString stringWithFormat:@"%@->%@",route,className];
+        [result addObject:dto];
+        
+        return result;
+    }
+    
+    NSMutableArray *rawDiggingResult = [NSMutableArray array];
+    // normal case -> do recursive
+    for (NSString *usedClassName in [self.dependenceStructure objectForKey:className]) {
+        // don't dig into itself, or it will create an eternal loop
+        if ([usedClassName isEqualToString:className]) {
+            continue;
+        }
+        
+        // don't dig into visited class, or it will create an eternal loop
+        if ([route rangeOfString:usedClassName].location != NSNotFound) {
+            continue;
+        }
+        
+        NSArray *digFurtherResult = [self digClass:usedClassName
+                                  withCurrentRoute:[NSString stringWithFormat:@"->%@",className]];
+        [rawDiggingResult addObjectsFromArray:digFurtherResult];
+    }
+    
+    // refine raw result to get minimal path for each class
+    for (CSADigResultDto *singleRawResult in rawDiggingResult) {
+        CSADigResultDto *dtoInCache = [self getFirstDigResultFromArray:resultToCache byClassname:singleRawResult.className];
+        if (dtoInCache) {
+            // if found a new raw result that has route shorter than the one in cache, then we replace the one in cache with this newly found dto in raw result array
+            NSInteger countInCache = [[dtoInCache.route componentsSeparatedByString:@"->"] count];
+            NSInteger countInRaw = [[singleRawResult.route componentsSeparatedByString:@"->"] count];
+            if (countInRaw < countInCache) {
+                dtoInCache.route = singleRawResult.route;
+            }
+        } else {
+            [resultToCache addObject:singleRawResult];
+        }
+    }
+    
+    //NSLog(@"dig->%@ refinedResult->%@",className,resultToCache);
+    
+    // cache this result
+    [_digResult setObject:resultToCache forKey:className];
+    
+    // create result to return by appending current route to cache result
+    for (CSADigResultDto *singleCacheResult in resultToCache) {
+        CSADigResultDto *resultDto = [[CSADigResultDto alloc] init];
+        resultDto.className = singleCacheResult.className;
+        resultDto.route = [NSString stringWithFormat:@"%@%@",route,singleCacheResult.route];
+        [result addObject:resultDto];
+    }
+    
+    return [NSArray arrayWithArray:result];
+}
+
+- (CSADigResultDto *)getFirstDigResultFromArray:(NSArray *)resultArray byClassname:(NSString *)className
+{
+    for (id item in resultArray) {
+        if ([item class] == [CSADigResultDto class]) {
+            CSADigResultDto *dto = (CSADigResultDto *)item;
+            if ([dto.className isEqualToString:className]) {
+                return dto;
+            }
+        }
+    }
+    return nil;
+}
+
+- (void)buildDependenceStructureWithDigger
+{
+    _digResult = [NSMutableDictionary dictionary];
+    
+    _dependenceStructureWithDigger = [NSMutableDictionary dictionary];
+    
+    // loop over all class in project and dig each of them
+    for (NSString *className in self.dependenceStructure) {
+        NSArray *usedClassList = [self digClass:className withCurrentRoute:@""];
+        [_dependenceStructureWithDigger setObject:usedClassList forKey:className];
     }
     
 }

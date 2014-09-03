@@ -50,10 +50,20 @@ int main(int argc, const char * argv[])
         
         //NSLog(@"%@", fileList);
         
-        CSAClassStructureManager *csm = [[CSAClassStructureManager alloc] initWithSourceCodeDirectory:@"/Volumes/DATAOSX/Users/giakhanhlv/Projects/Studying/ClassicPhotos-stalled"];
+        CSAClassStructureManager *csm = [[CSAClassStructureManager alloc] initWithSourceCodeDirectory:@"/Users/lvgkhanh/Projects/iOS Study/Dandori Demo_Extended"];
         csm.skipPods = YES;
         
-        NSLog(@"%@", [csm dependenceStructure]);
+        //NSLog(@"%@", [csm dependenceStructure]);
+        
+        NSLog(@"%@", [csm dependenceStructureWithDigger]);
+        
+        /*NSDictionary *dict = [csm dependenceStructureWithDigger];
+        for (NSString *className in dict.allKeys) {
+            for (CSADigResultDto *dto in [dict objectForKey:className]) {
+                NSLog(@"");
+            }
+        }*/
+        
         
         /*if ([csm isFile:@"/Volumes/DATAOSX/Users/giakhanhlv/Projects/Studying/ClassicPhotos-stalled/ClassicPhotos/ListViewController.m" containsClassCall:@"PendingOperations"]) {
             NSLog(@"contain!");

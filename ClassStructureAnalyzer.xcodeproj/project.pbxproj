@@ -25,6 +25,9 @@
 		A05A84AE19B357BF00F91C9D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A05A84AD19B357BF00F91C9D /* main.m */; };
 		A05A84B219B357BF00F91C9D /* SourceCodeParserTest.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = A05A84B119B357BF00F91C9D /* SourceCodeParserTest.1 */; };
 		A05A84B619B357F700F91C9D /* CSAClassStructureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A05A84A219B33C4A00F91C9D /* CSAClassStructureManager.m */; };
+		BF0DFCBD19B6B4240093E572 /* CSADigResultDto.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0DFCBC19B6B4240093E572 /* CSADigResultDto.m */; };
+		BF0DFCBE19B6B4D90093E572 /* CSADigResultDto.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0DFCBC19B6B4240093E572 /* CSADigResultDto.m */; };
+		BF0DFCBF19B6B4E70093E572 /* CSAClassUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEDB32D19B49801002705A7 /* CSAClassUtility.m */; };
 		BFEDB32419B474E7002705A7 /* CSAMetaInfoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEDB32219B474E7002705A7 /* CSAMetaInfoWindowController.m */; };
 		BFEDB32519B474E7002705A7 /* CSAMetaInfoWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFEDB32319B474E7002705A7 /* CSAMetaInfoWindowController.xib */; };
 		BFEDB32E19B49801002705A7 /* CSAClassUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEDB32D19B49801002705A7 /* CSAClassUtility.m */; };
@@ -91,6 +94,8 @@
 		A05A84AD19B357BF00F91C9D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A05A84B019B357BF00F91C9D /* SourceCodeParserTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SourceCodeParserTest-Prefix.pch"; sourceTree = "<group>"; };
 		A05A84B119B357BF00F91C9D /* SourceCodeParserTest.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = SourceCodeParserTest.1; sourceTree = "<group>"; };
+		BF0DFCBB19B6B4240093E572 /* CSADigResultDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSADigResultDto.h; path = Model/CSADigResultDto.h; sourceTree = "<group>"; };
+		BF0DFCBC19B6B4240093E572 /* CSADigResultDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSADigResultDto.m; path = Model/CSADigResultDto.m; sourceTree = "<group>"; };
 		BFEDB32119B474E7002705A7 /* CSAMetaInfoWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSAMetaInfoWindowController.h; path = ClassStructureAnalyzer/ViewController/CSAMetaInfoWindowController.h; sourceTree = "<group>"; };
 		BFEDB32219B474E7002705A7 /* CSAMetaInfoWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CSAMetaInfoWindowController.m; path = ClassStructureAnalyzer/ViewController/CSAMetaInfoWindowController.m; sourceTree = "<group>"; };
 		BFEDB32319B474E7002705A7 /* CSAMetaInfoWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CSAMetaInfoWindowController.xib; path = ClassStructureAnalyzer/ViewController/CSAMetaInfoWindowController.xib; sourceTree = "<group>"; };
@@ -243,6 +248,8 @@
 				A057734419B1DCC0006F2ECD /* Document.xcdatamodeld */,
 				A05A84A119B33C4A00F91C9D /* CSAClassStructureManager.h */,
 				A05A84A219B33C4A00F91C9D /* CSAClassStructureManager.m */,
+				BF0DFCBB19B6B4240093E572 /* CSADigResultDto.h */,
+				BF0DFCBC19B6B4240093E572 /* CSADigResultDto.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -425,6 +432,7 @@
 			files = (
 				BFEDB32419B474E7002705A7 /* CSAMetaInfoWindowController.m in Sources */,
 				A05A84A319B33C4A00F91C9D /* CSAClassStructureManager.m in Sources */,
+				BF0DFCBD19B6B4240093E572 /* CSADigResultDto.m in Sources */,
 				A057734619B1DCC0006F2ECD /* Document.xcdatamodeld in Sources */,
 				BFEDB32E19B49801002705A7 /* CSAClassUtility.m in Sources */,
 				A057733D19B1DCC0006F2ECD /* CSADocument.m in Sources */,
@@ -444,6 +452,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF0DFCBE19B6B4D90093E572 /* CSADigResultDto.m in Sources */,
+				BF0DFCBF19B6B4E70093E572 /* CSAClassUtility.m in Sources */,
 				A05A84B619B357F700F91C9D /* CSAClassStructureManager.m in Sources */,
 				A05A84AE19B357BF00F91C9D /* main.m in Sources */,
 			);

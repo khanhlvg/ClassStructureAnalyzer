@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CSADigResultDto.h"
 
 @interface CSAClassStructureManager : NSObject
 
 @property (nonatomic, readonly) NSString *sourceDirectoryPath;
 @property (nonatomic, readonly) NSDictionary *dependenceStructure;
+@property (nonatomic, readonly) NSDictionary *dependenceStructureWithDigger;
 @property (nonatomic, readonly) NSArray *allSourceFileList;
 @property (nonatomic, readonly) NSArray *classToDisplayList;
 @property (nonatomic) BOOL skipPods;

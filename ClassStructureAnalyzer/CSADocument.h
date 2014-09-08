@@ -14,7 +14,4 @@
 
 - (void)saveToCoreData;
 
-- (IBAction)copy:sender;
-- (IBAction)paste:sender;
-
 @end

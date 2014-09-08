@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CSADigResultDto : NSObject
+@interface CSADigResultDto : NSObject <NSCoding, NSCopying>
 
 @property (nonatomic) NSString *className;
 @property (nonatomic) NSString *route;

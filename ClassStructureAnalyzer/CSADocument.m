@@ -32,10 +32,19 @@
 @property (weak) IBOutlet NSTextField *classNameSearchText;
 
 @property (nonatomic) NSArray *classListMatchSearchString;
-@property (nonatomic) NSMutableDictionary *dependenceStructure;
+@property (nonatomic) NSDictionary *dependenceStructure;
+@property (nonatomic) NSDictionary *dependenceStructureWithDigger;
 @property (nonatomic) NSMutableDictionary *metaInfoDict;
 
 @end
+
+static NSString *const kContentTableName = @"Content";
+static NSString *const kDependenceStructureColumnName = @"dependenceStructure";
+static NSString *const kDependenceStructureDiggerColumnName = @"dependenceStructureDigger";
+static NSString *const kMetaDictInfoColumnName = @"metaInfoDict";
+
+static NSString *const kTableViewUsedInUIColumnId = @"usedInUIColumn";
+static NSString *const kTableViewRouteColumnId = @"routeColumn";
 
 @implementation CSADocument
 
@@ -84,7 +93,7 @@
 {
     //delete old data
     NSEntityDescription *entityDescription = [NSEntityDescription
-                                              entityForName:@"Content" inManagedObjectContext:self.managedObjectContext];
+                                              entityForName:kContentTableName inManagedObjectContext:self.managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
     [request setEntity:entityDescription];
@@ -97,14 +106,17 @@
     
     //resave new data
     
-    NSManagedObject *entityDesc = [NSEntityDescription insertNewObjectForEntityForName:@"Content"
+    NSManagedObject *entityDesc = [NSEntityDescription insertNewObjectForEntityForName:kContentTableName
                                                                 inManagedObjectContext:self.managedObjectContext];
 
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.dependenceStructure];
-    [entityDesc setValue:data forKey:@"dependenceStructure"];
+    [entityDesc setValue:data forKey:kDependenceStructureColumnName];
     
     data = [NSKeyedArchiver archivedDataWithRootObject:self.metaInfoDict];
-    [entityDesc setValue:data forKey:@"metaInfoDict"];
+    [entityDesc setValue:data forKey:kMetaDictInfoColumnName];
+    
+    data = [NSKeyedArchiver archivedDataWithRootObject:self.dependenceStructureWithDigger];
+    [entityDesc setValue:data forKey:kDependenceStructureDiggerColumnName];
     
     [self.managedObjectContext insertObject:entityDesc];
     
@@ -115,7 +127,8 @@
 - (void)loadFromCoreData
 {
     NSEntityDescription *entityDescription = [NSEntityDescription
-                                              entityForName:@"Content" inManagedObjectContext:self.managedObjectContext];
+                                              entityForName:kContentTableName
+                                              inManagedObjectContext:self.managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
 
     [request setEntity:entityDescription];
@@ -125,17 +138,21 @@
     if ((array == nil) || (array.count == 0))
     {
         self.dependenceStructure = @{};
+        self.dependenceStructureWithDigger = @{};
     } else {
         NSManagedObject *object = array[0];
         
-        NSData *rawData = [object valueForKey:@"dependenceStructure"];
+        NSData *rawData = [object valueForKey:kDependenceStructureColumnName];
         self.dependenceStructure = [NSKeyedUnarchiver unarchiveObjectWithData:rawData];
         
-        rawData = [object valueForKey:@"metaInfoDict"];
+        rawData = [object valueForKey:kMetaDictInfoColumnName];
         self.metaInfoDict = [NSKeyedUnarchiver unarchiveObjectWithData:rawData];
+        
+        rawData = [object valueForKey:kDependenceStructureDiggerColumnName];
+        self.dependenceStructureWithDigger = [NSKeyedUnarchiver unarchiveObjectWithData:rawData];
     }
     
-    self.classListMatchSearchString = [self.dependenceStructure allKeys];
+    self.classListMatchSearchString = [self.dependenceStructureWithDigger allKeys];
     
     [self.classListTable reloadData];
 }
@@ -155,8 +172,8 @@
     } else {
         NSInteger classListRow = self.classListTable.selectedRow;
         if (classListRow >= 0) {
-            NSString *selectedClassName = self.dependenceStructure.allKeys[classListRow];
-            return [[self.dependenceStructure objectForKey:selectedClassName] count];
+            NSString *selectedClassName = self.classListMatchSearchString[classListRow];
+            return [[self.dependenceStructureWithDigger objectForKey:selectedClassName] count];
         } else {
             return 0;
         }
@@ -169,9 +186,19 @@
         return self.classListMatchSearchString[row];
     } else {
         NSInteger classListRow = self.classListTable.selectedRow;
-        if (classListRow >= 0) {
-            NSString *selectedClassName = self.dependenceStructure.allKeys[classListRow];
-            return [self.dependenceStructure objectForKey:selectedClassName][row];
+        NSString *selectedClassName = self.classListMatchSearchString[classListRow];
+        CSADigResultDto *resultDto = [self.dependenceStructureWithDigger objectForKey:selectedClassName][row];
+        
+        // if there is no row in class list selected, then return nil
+        if (classListRow < 0) {
+            return nil;
+        }
+        
+        if ([tableColumn.identifier isEqualToString:kTableViewUsedInUIColumnId]) {
+            NSString *classNameMetaInfo = [self.metaInfoDict objectForKey:resultDto.className];
+            return classNameMetaInfo;
+        } if ([tableColumn.identifier isEqualToString:kTableViewRouteColumnId]) {
+            return resultDto.route;
         } else {
             return nil;
         }
@@ -227,7 +254,9 @@
             csm.skipPods = YES;
             
             self.dependenceStructure = csm.dependenceStructure;
-            self.metaInfoDict = [self metaInfoDictionaryFromStructure:self.dependenceStructure];
+            self.dependenceStructureWithDigger = csm.dependenceStructureWithDigger;
+            self.metaInfoDict = [self metaInfoDictionaryFromStructure:self.dependenceStructureWithDigger];
+            self.classListMatchSearchString = [self.dependenceStructureWithDigger allKeys];
             [self.classListTable reloadData];
             
             [self saveToCoreData];
@@ -258,7 +287,7 @@
 - (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor
 {
     NSString *classNameSearchString = fieldEditor.string;
-    self.classListMatchSearchString = [CSAClassUtility subArrayOf:[self.dependenceStructure allKeys]
+    self.classListMatchSearchString = [CSAClassUtility subArrayOf:[self.dependenceStructureWithDigger allKeys]
                                                       matchString:classNameSearchString];
     [self.classListTable reloadData];
     return YES;
@@ -270,7 +299,7 @@
 {
     NSMutableDictionary *ret = [NSMutableDictionary dictionary];
     
-    for (NSString *className in self.dependenceStructure.allKeys) {
+    for (NSString *className in structure.allKeys) {
         if ([CSAClassUtility shouldClassHasMetaData:className]) {
             [ret setObject:className forKey:className];
         }

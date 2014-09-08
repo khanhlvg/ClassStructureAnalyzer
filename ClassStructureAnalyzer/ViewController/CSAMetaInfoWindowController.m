@@ -91,6 +91,10 @@ static NSString *const kDescriptionColumnIdentifer = @"DescriptionColumn";
 #pragma mark - TextField delegate methods
 - (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor
 {
+    if (control != self.filterClassnameText) {
+        return YES;
+    }
+    
     NSString *classNameSearchString = fieldEditor.string;
     self.classListMatchSearchString = [CSAClassUtility subArrayOf:[self.metaInfoDict allKeys]
                                                       matchString:classNameSearchString];

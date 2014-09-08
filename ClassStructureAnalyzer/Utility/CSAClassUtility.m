@@ -25,17 +25,25 @@
 
 + (NSArray *)subArrayOf:(NSArray *)array matchString:(NSString *)matchString
 {
+    // return original array if there is no query string
     if ([matchString isEqualToString:@""]) {
         return [array copy];
     }
+    
+    NSArray *matchStringArray = [matchString
+                                        componentsSeparatedByCharactersInSet:[NSCharacterSet
+                                                                              characterSetWithCharactersInString:@",\n"]];
     
     NSMutableArray *ret = [NSMutableArray array];
     
     for (id item in array) {
         if ([[item class] isSubclassOfClass:[NSString class]]) {
             NSString *str = (NSString *)item;
-            if ([str rangeOfString:matchString options:NSCaseInsensitiveSearch].location != NSNotFound) {
-                [ret addObject:str];
+            for (NSString *singleMatchString in matchStringArray) {
+                if ([str rangeOfString:singleMatchString options:NSCaseInsensitiveSearch].location != NSNotFound) {
+                    [ret addObject:str];
+                    break;
+                }
             }
         }
     }

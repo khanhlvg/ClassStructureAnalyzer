@@ -17,27 +17,27 @@
         <window title="Meta Info Editor" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" animationBehavior="default" id="oid-Rc-FaF" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="139" y="81" width="533" height="372"/>
+            <rect key="contentRect" x="139" y="81" width="707" height="450"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
             <view key="contentView" id="mlT-gc-stf">
-                <rect key="frame" x="0.0" y="0.0" width="533" height="372"/>
+                <rect key="frame" x="0.0" y="0.0" width="707" height="450"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nws-bZ-Od2">
-                        <rect key="frame" x="20" y="20" width="493" height="284"/>
+                        <rect key="frame" x="20" y="20" width="667" height="362"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <clipView key="contentView" id="ATt-Os-e6M">
-                            <rect key="frame" x="1" y="17" width="491" height="266"/>
+                            <rect key="frame" x="1" y="17" width="665" height="344"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="7aA-jt-phI" id="Lqh-jh-eVb">
-                                    <rect key="frame" x="0.0" y="0.0" width="491" height="266"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="665" height="344"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                     <tableColumns>
-                                        <tableColumn identifier="ClassNameColumn" width="116" minWidth="40" maxWidth="1000" id="GNx-3M-yvu">
+                                        <tableColumn identifier="ClassNameColumn" width="178.3828125" minWidth="40" maxWidth="1000" id="GNx-3M-yvu">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Class Name">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -50,7 +50,7 @@
                                             </textFieldCell>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         </tableColumn>
-                                        <tableColumn identifier="DescriptionColumn" width="369" minWidth="40" maxWidth="1000" id="Y47-0F-RNN">
+                                        <tableColumn identifier="DescriptionColumn" width="480.5" minWidth="40" maxWidth="1000" id="Y47-0F-RNN">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Description">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -73,7 +73,7 @@
                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </clipView>
                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="Off-wx-FQv">
-                            <rect key="frame" x="1" y="1" width="0.0" height="16"/>
+                            <rect key="frame" x="1" y="267" width="491" height="16"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="0nV-Cr-0Fd">
@@ -81,12 +81,12 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <tableHeaderView key="headerView" id="7aA-jt-phI">
-                            <rect key="frame" x="0.0" y="0.0" width="491" height="17"/>
+                            <rect key="frame" x="0.0" y="0.0" width="665" height="17"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </tableHeaderView>
                     </scrollView>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Ld-DS-poc">
-                        <rect key="frame" x="20" y="312" width="247" height="22"/>
+                        <rect key="frame" x="20" y="390" width="334" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="9It-mM-QRx">
                             <font key="font" metaFont="system"/>
@@ -98,7 +98,7 @@
                         </connections>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gaO-4X-FI5">
-                        <rect key="frame" x="18" y="342" width="109" height="17"/>
+                        <rect key="frame" x="18" y="420" width="109" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="105" id="bxu-9y-lGg"/>

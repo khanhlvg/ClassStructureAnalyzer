@@ -25,30 +25,33 @@
 
 + (NSArray *)subArrayOf:(NSArray *)array matchString:(NSString *)matchString
 {
+    NSMutableArray *ret;
+    
     // return original array if there is no query string
     if ([matchString isEqualToString:@""]) {
-        return [array copy];
+        ret = [array mutableCopy];
     }
-    
-    NSArray *matchStringArray = [matchString
-                                        componentsSeparatedByCharactersInSet:[NSCharacterSet
-                                                                              characterSetWithCharactersInString:@",\n"]];
-    
-    NSMutableArray *ret = [NSMutableArray array];
-    
-    for (id item in array) {
-        if ([[item class] isSubclassOfClass:[NSString class]]) {
-            NSString *str = (NSString *)item;
-            for (NSString *singleMatchString in matchStringArray) {
-                if ([str rangeOfString:singleMatchString options:NSCaseInsensitiveSearch].location != NSNotFound) {
-                    [ret addObject:str];
-                    break;
+    else {
+        ret = [NSMutableArray array];
+        
+        NSArray *matchStringArray = [matchString
+                                            componentsSeparatedByCharactersInSet:[NSCharacterSet
+                                                                                  characterSetWithCharactersInString:@",\n"]];
+        
+        for (id item in array) {
+            if ([[item class] isSubclassOfClass:[NSString class]]) {
+                NSString *str = (NSString *)item;
+                for (NSString *singleMatchString in matchStringArray) {
+                    if ([str rangeOfString:singleMatchString options:NSCaseInsensitiveSearch].location != NSNotFound) {
+                        [ret addObject:str];
+                        break;
+                    }
                 }
             }
         }
     }
     
-    return ret;
+    return [ret sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
 
 

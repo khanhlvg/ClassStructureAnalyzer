@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CSAClassStructureManager.h"
+#import "NSDictionary+RT.h"
 
 int main(int argc, const char * argv[])
 {
@@ -50,12 +51,12 @@ int main(int argc, const char * argv[])
         
         //NSLog(@"%@", fileList);
         
-        CSAClassStructureManager *csm = [[CSAClassStructureManager alloc] initWithSourceCodeDirectory:@"/Users/lvgkhanh/Projects/iOS Study/Dandori Demo_Extended"];
+        /*CSAClassStructureManager *csm = [[CSAClassStructureManager alloc] initWithSourceCodeDirectory:@"/Users/lvgkhanh/Projects/iOS Study/Dandori Demo_Extended"];
         csm.skipPods = YES;
         
         //NSLog(@"%@", [csm dependenceStructure]);
         
-        NSLog(@"%@", [csm dependenceStructureWithDigger]);
+        NSLog(@"%@", [csm dependenceStructureWithDigger]);*/
         
         /*NSDictionary *dict = [csm dependenceStructureWithDigger];
         for (NSString *className in dict.allKeys) {
@@ -68,6 +69,17 @@ int main(int argc, const char * argv[])
         /*if ([csm isFile:@"/Volumes/DATAOSX/Users/giakhanhlv/Projects/Studying/ClassicPhotos-stalled/ClassicPhotos/ListViewController.m" containsClassCall:@"PendingOperations"]) {
             NSLog(@"contain!");
         }*/
+        
+        NSMutableDictionary *testDict = [NSMutableDictionary dictionary];
+        [testDict setObject:@"test" forKey:@"hel1"];
+        [testDict setObject:@"test12" forKey:@"gel"];
+        [testDict setObject:@"tes11t" forKey:@"aban"];
+        
+        NSLog(@"%@", testDict.allKeys);
+        
+        testDict = [testDict sortedByStringKeys];
+        
+        NSLog(@"%@", testDict.allKeys);
         
     }
     return 0;

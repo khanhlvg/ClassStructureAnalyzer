@@ -8,10 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface CSADocument : NSPersistentDocument<NSTableViewDataSource,NSTableViewDelegate,NSTextFieldDelegate>
+@interface CSADocument : NSPersistentDocument<NSTableViewDataSource,NSTableViewDelegate,NSTextFieldDelegate,NSMatrixDelegate>
 
 @property (nonatomic,readonly) NSDictionary *dependenceStructure;
 
 - (void)saveToCoreData;
+
+- (IBAction)copy:sender;
+- (IBAction)paste:sender;
 
 @end

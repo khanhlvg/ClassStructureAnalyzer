@@ -30,6 +30,8 @@
 @property (weak) IBOutlet NSTableView *classListTable;
 @property (weak) IBOutlet NSTableView *classUsedTable;
 @property (weak) IBOutlet NSTextField *classNameSearchText;
+@property (weak) IBOutlet NSMatrix *modeMatrix;
+
 
 @property (nonatomic) NSArray *classListMatchSearchString;
 @property (nonatomic) NSDictionary *dependenceStructure;
@@ -45,6 +47,8 @@ static NSString *const kMetaDictInfoColumnName = @"metaInfoDict";
 
 static NSString *const kTableViewUsedInUIColumnId = @"usedInUIColumn";
 static NSString *const kTableViewRouteColumnId = @"routeColumn";
+static NSString *const kModeScreen = @"Screen";
+static NSString *const kModeClass = @"Class";
 
 @implementation CSADocument
 
@@ -152,9 +156,9 @@ static NSString *const kTableViewRouteColumnId = @"routeColumn";
         self.dependenceStructureWithDigger = [NSKeyedUnarchiver unarchiveObjectWithData:rawData];
     }
     
-    self.classListMatchSearchString = [self.dependenceStructureWithDigger allKeys];
+    [self createClassListMatchSearchString];
     
-    [self.classListTable reloadData];
+    //[self.classListTable reloadData];
 }
 
 /*
@@ -173,7 +177,12 @@ static NSString *const kTableViewRouteColumnId = @"routeColumn";
         NSInteger classListRow = self.classListTable.selectedRow;
         if (classListRow >= 0) {
             NSString *selectedClassName = self.classListMatchSearchString[classListRow];
-            return [[self.dependenceStructureWithDigger objectForKey:selectedClassName] count];
+            //NSLog(@"class = %@, no of row = %zd",selectedClassName,[[self.dependenceStructureWithDigger objectForKey:selectedClassName] count]);
+            if ([[self.modeMatrix.selectedCell identifier] isEqualToString:kModeClass]) {
+                return [[self.dependenceStructure objectForKey:selectedClassName] count];
+            } else {
+                return [[self.dependenceStructureWithDigger objectForKey:selectedClassName] count];
+            }
         } else {
             return 0;
         }
@@ -186,21 +195,54 @@ static NSString *const kTableViewRouteColumnId = @"routeColumn";
         return self.classListMatchSearchString[row];
     } else {
         NSInteger classListRow = self.classListTable.selectedRow;
-        NSString *selectedClassName = self.classListMatchSearchString[classListRow];
-        CSADigResultDto *resultDto = [self.dependenceStructureWithDigger objectForKey:selectedClassName][row];
         
         // if there is no row in class list selected, then return nil
         if (classListRow < 0) {
             return nil;
         }
         
-        if ([tableColumn.identifier isEqualToString:kTableViewUsedInUIColumnId]) {
-            NSString *classNameMetaInfo = [self.metaInfoDict objectForKey:resultDto.className];
-            return classNameMetaInfo;
-        } if ([tableColumn.identifier isEqualToString:kTableViewRouteColumnId]) {
-            return resultDto.route;
-        } else {
+        NSString *selectedClassName = self.classListMatchSearchString[classListRow];
+        
+        if ([[self.modeMatrix.selectedCell identifier] isEqualToString:kModeClass]) {
+            
+            // Mode = Class
+            
+            //guard again weird bug of NSTableView: not calling count before getobject
+            if (row >= [[self.dependenceStructure objectForKey:selectedClassName] count]) {
+                return nil;
+            }
+            // end guarding
+            
+            NSString *classUsedName = [self.dependenceStructure objectForKey:selectedClassName][row];
+            
+            if ([tableColumn.identifier isEqualToString:kTableViewUsedInUIColumnId]) {
+                NSString *classNameMetaInfo = classUsedName;
+                return classNameMetaInfo;
+            } else {
+                return nil;
+            }
+            
             return nil;
+            
+        } else {
+            // Mode = Screen
+        
+            //guard again weird bug of NSTableView: not calling count before getobject
+            if (row >= [[self.dependenceStructureWithDigger objectForKey:selectedClassName] count]) {
+                return nil;
+            }
+            // end guarding
+            
+            CSADigResultDto *resultDto = [self.dependenceStructureWithDigger objectForKey:selectedClassName][row];
+            
+            if ([tableColumn.identifier isEqualToString:kTableViewUsedInUIColumnId]) {
+                NSString *classNameMetaInfo = [self.metaInfoDict objectForKey:resultDto.className];
+                return classNameMetaInfo;
+            } if ([tableColumn.identifier isEqualToString:kTableViewRouteColumnId]) {
+                return resultDto.route;
+            } else {
+                return nil;
+            }
         }
     }
 }
@@ -209,7 +251,7 @@ static NSString *const kTableViewRouteColumnId = @"routeColumn";
 - (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(NSInteger)row
 {
     if (tableView == self.classListTable) {
-        
+        //NSLog(@"should select row = %@",self.classListMatchSearchString[row]);
         return YES;
     } else {
         return NO;
@@ -218,7 +260,10 @@ static NSString *const kTableViewRouteColumnId = @"routeColumn";
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification
 {
-    [self.classUsedTable reloadData];
+    //NSLog(@"notify that table did change");
+    if (notification.object == self.classListTable) {
+        [self.classUsedTable reloadData];
+    }
 }
 
 #pragma mark - NSTableViewDelegate methods
@@ -256,7 +301,7 @@ static NSString *const kTableViewRouteColumnId = @"routeColumn";
             self.dependenceStructure = csm.dependenceStructure;
             self.dependenceStructureWithDigger = csm.dependenceStructureWithDigger;
             self.metaInfoDict = [self metaInfoDictionaryFromStructure:self.dependenceStructureWithDigger];
-            self.classListMatchSearchString = [self.dependenceStructureWithDigger allKeys];
+            [self createClassListMatchSearchString];
             [self.classListTable reloadData];
             
             [self saveToCoreData];
@@ -286,11 +331,26 @@ static NSString *const kTableViewRouteColumnId = @"routeColumn";
 #pragma mark - TextField delegate methods
 - (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor
 {
-    NSString *classNameSearchString = fieldEditor.string;
+    [self createClassListMatchSearchString];
+    return YES;
+}
+
+- (void)createClassListMatchSearchString
+{
+    NSString *classNameSearchString = self.classNameSearchText.stringValue;
+    if (!classNameSearchString) {
+        classNameSearchString = @"";
+    }
     self.classListMatchSearchString = [CSAClassUtility subArrayOf:[self.dependenceStructureWithDigger allKeys]
                                                       matchString:classNameSearchString];
     [self.classListTable reloadData];
-    return YES;
+
+}
+
+#pragma mark - NSMatrixDelegate methods
+
+- (IBAction)changeMode:(NSMatrix *)sender {
+    [self.classUsedTable reloadData];
 }
 
 #pragma mark - Meta data methods
@@ -307,5 +367,7 @@ static NSString *const kTableViewRouteColumnId = @"routeColumn";
     
     return ret;
 }
+
+
 
 @end

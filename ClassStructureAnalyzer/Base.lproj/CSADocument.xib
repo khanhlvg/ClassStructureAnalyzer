@@ -10,6 +10,7 @@
                 <outlet property="classListTable" destination="Z97-Wl-jXh" id="oM0-3h-qaw"/>
                 <outlet property="classNameSearchText" destination="l0y-7n-83f" id="SOI-Ig-8j7"/>
                 <outlet property="classUsedTable" destination="Rrt-rx-3Rb" id="8VH-PH-zlL"/>
+                <outlet property="modeMatrix" destination="ZjR-jZ-tal" id="Ccz-m6-KOa"/>
                 <outlet property="window" destination="xOd-HO-29H" id="JIz-fz-R2o"/>
             </connections>
         </customObject>
@@ -112,13 +113,13 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="Kl9-uS-S7M" id="Rrt-rx-3Rb">
-                                    <rect key="frame" x="0.0" y="0.0" width="557" height="425"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="625" height="425"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                     <tableColumns>
-                                        <tableColumn identifier="usedInUIColumn" width="152" minWidth="40" maxWidth="220" id="JCD-UH-9uF">
+                                        <tableColumn identifier="usedInUIColumn" width="220" minWidth="40" maxWidth="999999" id="JCD-UH-9uF">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Used in UI">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -162,7 +163,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <tableHeaderView key="headerView" id="Kl9-uS-S7M">
-                            <rect key="frame" x="0.0" y="0.0" width="557" height="17"/>
+                            <rect key="frame" x="0.0" y="0.0" width="625" height="17"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </tableHeaderView>
                     </scrollView>
@@ -188,6 +189,36 @@
                             <action selector="pushEditMeta:" target="-2" id="xkW-iF-Hc6"/>
                         </connections>
                     </button>
+                    <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZjR-jZ-tal">
+                        <rect key="frame" x="542" y="487" width="72" height="38"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="72" id="2Mm-JE-SLI"/>
+                            <constraint firstAttribute="height" constant="38" id="JTh-Iq-ZrC"/>
+                        </constraints>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        <size key="cellSize" width="72" height="18"/>
+                        <size key="intercellSpacing" width="4" height="2"/>
+                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="eZg-ub-izJ">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <cells>
+                            <column>
+                                <buttonCell type="radio" title="Screen" imagePosition="left" alignment="left" state="on" identifier="Screen" tag="1" inset="2" id="Que-iV-Vbe">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <buttonCell type="radio" title="Class" imagePosition="left" alignment="left" identifier="Class" inset="2" id="v3K-y8-uVz">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </column>
+                        </cells>
+                        <connections>
+                            <action selector="changeMode:" target="-2" id="CFu-KC-JVu"/>
+                        </connections>
+                    </matrix>
                 </subviews>
                 <constraints>
                     <constraint firstItem="l10-xE-Tgi" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" constant="16" id="0oG-Pj-HSP"/>
@@ -199,9 +230,11 @@
                     <constraint firstItem="MJJ-IF-B7R" firstAttribute="leading" secondItem="gIp-Ho-8D9" secondAttribute="leading" constant="20" id="J8d-Yk-SBD"/>
                     <constraint firstItem="pvL-lw-zrn" firstAttribute="top" secondItem="MJJ-IF-B7R" secondAttribute="bottom" constant="8" id="Juz-jO-stp"/>
                     <constraint firstItem="MJJ-IF-B7R" firstAttribute="width" secondItem="l0y-7n-83f" secondAttribute="width" id="KbH-Ax-CR9"/>
+                    <constraint firstItem="l10-xE-Tgi" firstAttribute="leading" secondItem="ZjR-jZ-tal" secondAttribute="trailing" constant="25" id="TAA-I1-SHQ"/>
                     <constraint firstItem="l0y-7n-83f" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" constant="15" id="ZtV-TT-YLq"/>
                     <constraint firstItem="MJJ-IF-B7R" firstAttribute="width" secondItem="pvL-lw-zrn" secondAttribute="width" id="acz-DE-kDo"/>
                     <constraint firstAttribute="trailing" secondItem="1vJ-xN-bYa" secondAttribute="trailing" constant="20" id="eSj-cF-PIu"/>
+                    <constraint firstItem="ZjR-jZ-tal" firstAttribute="top" secondItem="gIp-Ho-8D9" secondAttribute="top" constant="8" id="gIR-jd-GvY"/>
                     <constraint firstItem="0z3-Mm-5rb" firstAttribute="top" secondItem="1vJ-xN-bYa" secondAttribute="bottom" constant="8" id="hkY-kX-MXP"/>
                     <constraint firstItem="pvL-lw-zrn" firstAttribute="leading" secondItem="gIp-Ho-8D9" secondAttribute="leading" constant="20" id="iv5-7n-UbI"/>
                     <constraint firstItem="0z3-Mm-5rb" firstAttribute="width" secondItem="pvL-lw-zrn" secondAttribute="width" multiplier="2.2" id="lIb-JO-5Zg"/>

@@ -195,6 +195,10 @@ NSInteger _debugDepth = 0;
     _debugDepth++;
     NSLog(@"depth=%zd",_debugDepth);
     
+    if ([className isEqualToString:@"HACoreData"]) {
+        int i=0;
+    }
+    
     NSMutableArray *result = [NSMutableArray array];
     
     //if has cached data than skip digging and create result from cache
@@ -218,7 +222,7 @@ NSInteger _debugDepth = 0;
     NSMutableArray *resultToCache = [NSMutableArray array];
     
     // if current class has meta data then return
-    if ([CSAClassUtility shouldClassHasMetaData:className]) {
+    /*if ([CSAClassUtility shouldClassHasMetaData:className]) {
         //cache result
         CSADigResultDto *dto = [[CSADigResultDto alloc] init];
         dto.className = className;
@@ -234,21 +238,31 @@ NSInteger _debugDepth = 0;
         
         _debugDepth--;
         return result;
-    }
+    }*/
     
     NSMutableArray *rawDiggingResult = [NSMutableArray array];
     // normal case -> do recursive
     for (NSString *usedClassName in [self.dependenceStructure objectForKey:className]) {
-        // don't dig into itself, or it will create an eternal loop
-        if ([usedClassName isEqualToString:className]) {
-            continue;
-        }
         
         // don't dig into visited class, or it will create an eternal loop
         if ([route rangeOfString:usedClassName].location != NSNotFound) {
             continue;
         }
         
+        // if this class is a UI item, then don't dig further but return itself
+        if ([CSAClassUtility shouldClassHasMetaData:usedClassName]) {
+            CSADigResultDto *dto = [[CSADigResultDto alloc] init];
+            dto.className = usedClassName;
+            dto.route = [NSString stringWithFormat:@"%@->%@->%@",route,className,usedClassName];
+            [rawDiggingResult addObject:dto];
+            continue;
+        }
+    
+        // don't dig into itself, or it will create an eternal loop
+        if ([usedClassName isEqualToString:className]) {
+            continue;
+        }
+    
         NSArray *digFurtherResult = [self digClass:usedClassName
                                   withCurrentRoute:[NSString stringWithFormat:@"%@->%@",route,className]];
         [rawDiggingResult addObjectsFromArray:digFurtherResult];
@@ -315,8 +329,15 @@ NSInteger _debugDepth = 0;
         //shorten route string
         NSString *prefix = [NSString stringWithFormat:@"->%@",className];
         for (CSADigResultDto *dto in usedClassList) {
-            dto.route = [dto.route substringFromIndex:prefix.length];
-            dto.route = [NSString stringWithFormat:@"(self)%@",dto.route];
+            /*if ([dto.route isEqualToString:prefix]) {
+                dto.route = @"(self)";
+            } else {*/
+                if (prefix.length >= dto.route.length) {
+                    NSLog(@"%@,route=%@",prefix,dto.route);
+                }
+                dto.route = [dto.route substringFromIndex:prefix.length];
+                dto.route = [NSString stringWithFormat:@"(self)%@",dto.route];
+            //}
         }
         
         [_dependenceStructureWithDigger setObject:usedClassList forKey:className];
